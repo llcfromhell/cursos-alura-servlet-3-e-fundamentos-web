@@ -1,4 +1,4 @@
-package br.com.alura.gerenciador.web;
+package br.com.alura.gerenciador.web.servlets.empresa;
 
 import java.io.IOException;
 import java.io.PrintWriter;
