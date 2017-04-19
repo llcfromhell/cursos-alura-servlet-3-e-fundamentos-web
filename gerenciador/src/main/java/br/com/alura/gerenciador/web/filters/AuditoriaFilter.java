@@ -2,7 +2,6 @@ package br.com.alura.gerenciador.web.filters;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,6 +11,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import br.com.alura.gerenciador.web.utils.Cookies;
 
 @WebFilter(urlPatterns = "/*")
 public class AuditoriaFilter implements Filter {
@@ -24,11 +26,14 @@ public class AuditoriaFilter implements Filter {
 			throws IOException, ServletException {
 
 		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) req;
 
 		String uri = request.getRequestURI();
 		
-		String usuarioLogado = getUsuarioFrom(request.getCookies());
+		Cookie userCookie = new Cookies(request.getCookies()).getUserCookie();
 
+		String usuarioLogado = userCookie == null ? null : userCookie.getValue();
+		
 		if (usuarioLogado == null && ! (uri.equals(URL_GERENCIADOR_LOGIN) || uri.equals(URL_GERENCIADOR))) {
 			
 			PrintWriter w = res.getWriter();
@@ -43,7 +48,10 @@ public class AuditoriaFilter implements Filter {
 			
 		} else {
 			
-			chain.doFilter(req, res);
+			userCookie.setMaxAge(10 * 60);
+			response.addCookie(userCookie);
+			
+			chain.doFilter(request, response);
 			
 		}
 		
@@ -52,15 +60,5 @@ public class AuditoriaFilter implements Filter {
 
 	}
 
-	private String getUsuarioFrom(Cookie[] cookies) {
-		
-		if (cookies == null) return null;
-		
-		return Arrays.asList(cookies).stream()
-				.filter(c -> c.getName().equals("usuario"))
-				.findFirst()
-				.orElse(null)
-				.getValue();
-	}
 
 }

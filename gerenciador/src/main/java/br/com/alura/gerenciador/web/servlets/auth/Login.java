@@ -1,4 +1,4 @@
-package br.com.alura.gerenciador.web.servlets.login;
+package br.com.alura.gerenciador.web.servlets.auth;
 
 import java.io.IOException;
 import java.io.PrintWriter;
