@@ -19,6 +19,24 @@ public class BuscaEmpresa extends HttpServlet  {
 
 	private static final long serialVersionUID = 1L;
 	
+	public BuscaEmpresa() {
+		System.out.println("Instanciando uma Servlet do tipo BuscaEmpresa " + this);
+	}
+	
+	@Override
+	public void init() throws ServletException {
+	    super.init();
+	    System.out.println("Inicializando a Servlet " + this);
+	}
+
+	@Override
+	public void destroy() {
+	    super.destroy();
+	    System.out.println("Destruindo a Servlet " + this);
+	}
+
+
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
