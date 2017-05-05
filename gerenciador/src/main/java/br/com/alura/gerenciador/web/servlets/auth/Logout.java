@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.alura.gerenciador.web.utils.Cookies;
 
@@ -18,13 +19,17 @@ public class Logout extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 				
-		Cookie userCookie = new Cookies(req.getCookies()).getUserCookie();
+//		Cookie userCookie = new Cookies(req.getCookies()).getUserCookie();
+//		
+//		if (userCookie != null) {
+//			userCookie.setMaxAge(0);
+//		}
+//		
+//		resp.addCookie(userCookie);
+
+		HttpSession session = req.getSession();
+		session.removeAttribute("usuario.logado");
 		
-		if (userCookie != null) {
-			userCookie.setMaxAge(0);
-		}
-		
-		resp.addCookie(userCookie);
 		PrintWriter w = resp.getWriter();
 		w.append("<html>");
 		w.append("<body>");
