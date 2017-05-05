@@ -29,7 +29,7 @@ public class Logout extends HttpServlet{
 //		resp.addCookie(userCookie);
 
 		HttpSession session = req.getSession();
-		session.removeAttribute("usuario.logado");
+		session.removeAttribute("usuarioLogado");
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/pages/logout.html");
 		dispatcher.forward(req, resp);

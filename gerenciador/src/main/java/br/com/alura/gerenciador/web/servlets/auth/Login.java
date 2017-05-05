@@ -60,13 +60,13 @@ public class Login extends HttpServlet {
 //			resp.addCookie(userCookie);
 			
 			HttpSession session = req.getSession();
-			session.setAttribute("usuario.logado", usuario.getEmail());
+			session.setAttribute("usuarioLogado", usuario.getEmail());
 		
 //			RequestDispatcher rd = req.getRequestDispatcher("index.html");
 //			rd.forward(req, resp);
 			
 			w.write("<p>");
-			w.write("Usuário: " + session.getAttribute("usuario.logado"));
+			w.write("Usuário: " + session.getAttribute("usuarioLogado"));
 			w.write("</p>");
 			
 			
