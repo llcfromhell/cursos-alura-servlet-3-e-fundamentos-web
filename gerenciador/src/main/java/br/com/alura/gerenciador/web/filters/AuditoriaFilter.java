@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.alura.gerenciador.Usuario;
+
 @WebFilter(urlPatterns = "/*")
 public class AuditoriaFilter implements Filter {
 
@@ -32,7 +34,7 @@ public class AuditoriaFilter implements Filter {
 
 //		String usuarioLogado = userCookie == null ? null : userCookie.getValue();
 		
-		String usuarioLogado = (String) session.getAttribute("usuario.logado");
+		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
 		
 //		if (usuarioLogado == null && ! (uri.equals(URL_GERENCIADOR_LOGIN) || uri.equals(URL_GERENCIADOR))) {
 //			
@@ -55,7 +57,7 @@ public class AuditoriaFilter implements Filter {
 			
 //		}
 		
-		String printUser = usuarioLogado == null ? "<deslogado>" : usuarioLogado ;
+		String printUser = usuarioLogado == null ? "<deslogado>" : usuarioLogado.getEmail() ;
 		System.out.println("Usuario " + printUser + " acessando a URI " + request.getRequestURI());
 		
 		chain.doFilter(request, response);
